@@ -1,0 +1,7 @@
+node_modules
+.env
+.tmp
+.port.tmp
+.sass-cache
+.DS_Store
+usage-data-config.json
