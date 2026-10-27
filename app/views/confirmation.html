@@ -1,0 +1,23 @@
+{# Confirmation page #}
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Trip booked - Space travel service - GOV.UK{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukPanel({
+      titleText: "Trip booked",
+      html: "Your reference number<br><strong>SPC4821M</strong>"
+    }) }}
+
+    <p class="govuk-body">We have sent you a confirmation email.</p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. We will contact you within 10 working days to confirm your launch date.</p>
+    <p class="govuk-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+    <p class="govuk-body"><a href="#" class="govuk-link">What did you think of this service?</a> (takes 30 seconds)</p>
+  </div>
+</div>
+{% endblock %}

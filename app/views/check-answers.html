@@ -1,0 +1,69 @@
+{# Check your answers page #}
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Check your answers - Space travel service - GOV.UK{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: "/address" }) }}
+{% endblock %}
+
+{% block content %}
+{% set destinationName = "the Moon" if data['destination'] == "Moon" else "Mars" %}
+{% set tripType = data['moon-trip'] if data['destination'] == "Moon" else data['mars-trip'] %}
+{% set tripPage = "/moon" if data['destination'] == "Moon" else "/mars" %}
+
+{% set addressHtml %}
+  {{ data['address-line-1'] }}<br>
+  {% if data['address-line-2'] %}{{ data['address-line-2'] }}<br>{% endif %}
+  {{ data['address-town'] }}<br>
+  {% if data['address-county'] %}{{ data['address-county'] }}<br>{% endif %}
+  {{ data['address-postcode'] }}
+{% endset %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Check your answers for your trip to {{ destinationName }}</h1>
+
+    <h2 class="govuk-heading-m">Trip details</h2>
+    {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-9",
+      rows: [
+        {
+          key: { text: "Destination" },
+          value: { text: "The Moon" if data['destination'] == "Moon" else "Mars" },
+          actions: { items: [{ href: "/destination", text: "Change", visuallyHiddenText: "destination" }] }
+        },
+        {
+          key: { text: "Type of trip" },
+          value: { text: tripType },
+          actions: { items: [{ href: tripPage, text: "Change", visuallyHiddenText: "type of trip" }] }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m">Your details</h2>
+    {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-9",
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: data['full-name'] },
+          actions: { items: [{ href: "/name", text: "Change", visuallyHiddenText: "full name" }] }
+        },
+        {
+          key: { text: "Address" },
+          value: { html: addressHtml },
+          actions: { items: [{ href: "/address", text: "Change", visuallyHiddenText: "address" }] }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m">Now book your trip</h2>
+    <p class="govuk-body">By booking this trip you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+    <form action="/confirmation" method="post" novalidate>
+      {{ govukButton({ text: "Accept and book" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

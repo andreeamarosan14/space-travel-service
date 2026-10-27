@@ -1,0 +1,32 @@
+{# Name question #}
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}What is your full name? - Space travel service - GOV.UK{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: "/mars" if data['destination'] == "Mars" else "/moon" }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/address" method="post" novalidate>
+      {{ govukInput({
+        label: {
+          text: "What is your full name?",
+          isPageHeading: true,
+          classes: "govuk-label--l"
+        },
+        hint: { text: "Enter your name as it appears on your passport" },
+        id: "full-name",
+        name: "full-name",
+        value: data['full-name'],
+        autocomplete: "name",
+        spellcheck: false
+      }) }}
+
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

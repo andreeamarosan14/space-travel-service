@@ -1,0 +1,54 @@
+{# Destination question. Branching is handled in routes.js #}
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}{% if error %}Error: {% endif %}Where would you like to travel? - Space travel service - GOV.UK{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: "/" }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if error %}
+      {{ govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: [{ text: "Select where you would like to travel", href: "#destination" }]
+      }) }}
+    {% endif %}
+
+    <form action="/destination-answer" method="post" novalidate>
+      {{ govukRadios({
+        name: "destination",
+        fieldset: {
+          legend: {
+            text: "Where would you like to travel?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: { text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+        errorMessage: { text: "Select where you would like to travel" } if error,
+        items: [
+          {
+            value: "Moon",
+            text: "The Moon",
+            hint: { text: "Lorem ipsum dolor sit amet, around 3 days each way" },
+            checked: data['destination'] == "Moon"
+          },
+          {
+            value: "Mars",
+            text: "Mars",
+            hint: { text: "Lorem ipsum dolor sit amet, around 7 months each way" },
+            checked: data['destination'] == "Mars"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

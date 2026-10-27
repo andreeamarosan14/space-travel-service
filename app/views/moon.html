@@ -1,0 +1,43 @@
+{# Moon trip question #}
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}Which Moon trip would you like? - Space travel service - GOV.UK{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: "/destination" }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/name" method="post" novalidate>
+      {{ govukRadios({
+        name: "moon-trip",
+        fieldset: {
+          legend: {
+            text: "Which Moon trip would you like?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "Lunar orbit",
+            text: "Lunar orbit",
+            hint: { text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+            checked: data['moon-trip'] == "Lunar orbit"
+          },
+          {
+            value: "Surface landing",
+            text: "Surface landing",
+            hint: { text: "Sed do eiusmod tempor incididunt ut labore" },
+            checked: data['moon-trip'] == "Surface landing"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}
